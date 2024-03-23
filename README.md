@@ -159,13 +159,13 @@ En este proyecto usamos la versión 7.2.2 de los diferentes componentes KAFKA y 
 
  EN OTRA CONSOLA, deberemos ejecutar estos comandos para obtener el conteo de los mensajes que van llegando al KSQL:
 
-   > docker exec -it ksqldb-cli ksql http://ksqldb-server:8088
+    > docker exec -it ksqldb-cli ksql http://ksqldb-server:8088
 
  Dentro de KSQL se podrán ejecutar estos comandos a demanda, cuando se necesite saber cuantos registros se han recibido de cada sentimiento:
   
-   > select * from tabla_tweets;
+    > select * from tabla_tweets;
 
-   > select * from tabla_recuento_sentimientos;
+    > select * from tabla_recuento_sentimientos;
 
  Estas acciones dejaran 2 consolas abiertas para ir verificando que los datos de los TOPIC van llegando y se van comparando
 
