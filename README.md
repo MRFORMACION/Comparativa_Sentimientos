@@ -2,21 +2,23 @@
 
 El objetivo de este proyecto es refinar el análisis de sentimientos que se realiza sobre mensajes de la Red Social TWITTER.
 
-Ante la imposibilidad de poder leer comentarios ON-LINE desde la API de Twitter, se implementa un sistema que lee un fichero (1) con diferentes tweets que ya vienen etiquetados con ciertos sentimientos.
+Partiendo de un fichero con mensajes de TWITTER (ante la imposibilidad de poder leer comentarios ON-LINE desde la API de Twitter), se implementa un sistema que lo lee y calcula los sentimientos de esos mensajes.
+
+Los mensajes tweets de este fichero YA VIENEN etiquetados con ciertos sentimientos calculados en otro proceso externo.
 
 Se desean reprocesar estos comentarios en tiempo real (a medida que se leen los datos) y aplicarles otro modelo de análisis para reetiquetarlos y comparar la calificación automática de ambos modelos.
 
-Esta es el diagrama de arquitectura de componentes que comforman el proyecto:
+Este es el diagrama de arquitectura de componentes que comforman el proyecto:
 
 ![image](https://github.com/MRFORMACION/Comparativa_Sentimientos/blob/main/Arquitectura.jpg)
 
 > ENTRADA AL SISTEMA: Fichero con tweets preetiquetados (1).
 
-> PROCESO LECTURA DE TWEETS: Ejecutable en Python que extrae los tweets y los encola para su procesameinto (2) en el TOPIC  "twitter".
+> PROCESO LECTURA DE TWEETS: Ejecutable en Python que extrae los tweets y los encola para su procesameinto (2) en el TOPIC  "twitter" realizando la función de PRODUCER, teniendo 2 CONSUMER (KSQL y el otro proceso). 
 
 > MOTOR KAFKA: Para la gestión de las colas de mensajes.
 
-> PROCESO ANÁLISIS SENTIMIENTOS: Ejecutable en Python que recibe el TOPIC "twitter", calcula el análisis de sentimientos y encola los mensajes con sus nuevos valores de sentimientos (3) en el TOPIC "Sentimientos"
+> PROCESO ANÁLISIS SENTIMIENTOS: Ejecutable en Python que recibe el TOPIC "twitter", calcula el análisis de sentimientos y encola los mensajes con sus nuevos valores de sentimientos (3) en el TOPIC "Sentimientos". Realzia la función de PRODUCER, teniendo como único CONSUMER (KSQL).
 
 > MOTOR KSQL: Que recibe ambos TOPICs y compara las etiquetas originales y las generadas en el presente análisis.
 
@@ -34,17 +36,18 @@ En este proyecto usamos la versión 7.2.2 de los diferentes componentes KAFKA y 
 
   Revisar fichero: https://github.com/MRFORMACION/Comparativa_Sentimientos/blob/main/tweets.csv
 
-  (2) Fichero Python "extraer_de_twitter_a_kafka.py" que lee estos mensajes (en una pretensión inicial que fueran ON-LINE), pero para este proyecto se hace desde el fichero citado, y los encola en el TOPIC "twitter" CADA 2 SEGUNDO para simular la recepción continua de datos.
+  (2) Fichero Python "extraer_de_twitter_a_kafka.py" que lee estos mensajes (en una pretensión inicial que fueran ON-LINE), pero para este proyecto se hace desde el fichero citado, y los encola en el TOPIC "twitter".
+      Esta carga de mensajes se hace CADA 2 SEGUNDO para simular la recepción continua de datos.
 
   Revisar fichero: https://github.com/MRFORMACION/Comparativa_Sentimientos/blob/main/extraer_de_twitter_a_kafka.py
 
 ## Parte 2: MOTOR KAFKA.
 
- Con la tecnologia que nos proporcionan los componentes de KAFKA, se utilizan 2 TOPIC. El primero ya citado "tweets" para la ingesta de datos y transmisión de eventos, y el segundo "Sentimientos" que se utilizará para procesar flujo de datos entre servicios (PROCESO DE ANÁLISIS DE SENTIMIENTOS -> PROCESO COMPARATIVA DE SENTIMIENTOS (KSQL)  )
+ Con la tecnologia que nos proporcionan los componentes de KAFKA, se utilizan 2 TOPIC. El primero ya citado "tweets" para la ingesta de datos y transmisión de eventos, y el segundo "Sentimientos" que se utilizará para procesar flujo de datos entre servicios (PROCESO DE ANÁLISIS DE SENTIMIENTOS -> PROCESO COMPARATIVA DE SENTIMIENTOS (KSQL))
 
  El PRODUCER de TOPIC "tweets" es el proceso de lecturas de mensajes, y los CONSUMER el proceso de análisis de sentimientos, y KSQL donde se realizará las comparaciones.
 
- EL PRODUCER de TOPIC "Sentimeintos" es el proceso de análisis de sentimientos, y el único CONSUMER será de nuevo KSQL donde se realizará las comparaciones.
+ EL PRODUCER de TOPIC "Sentimientos" es el proceso de análisis de sentimientos, y el único CONSUMER será de nuevo KSQL donde se realizará las comparaciones.
 
 
 ## Parte 3: PROCESO ANÁLISIS DE SENTIMIENTOS.
@@ -52,17 +55,16 @@ En este proyecto usamos la versión 7.2.2 de los diferentes componentes KAFKA y 
  (3) Fichero Python "consumer.py" que realiza las tareas de CONSUMER y PRODUCER. 
  Recibe los mensajes del TOPIC "twitter" y los sanitiza (hace limpieza de caracteres que no son útiles para el análisis).
 
- Posteriormente utiliza la función "TextBlob" para calcular el sentimiento del mensaje, y por último realiza la tarea de PRODUCER con el registro enriquecido con losn uevos valores.
+ Posteriormente utiliza la función "TextBlob" para calcular el sentimiento del mensaje, y por último realiza la tarea de PRODUCER con el registro enriquecido con los nuevos valores.
 
  Con el Método "TextBlob" se calculan 3 campos de sentimientos que ayudarán en la comparativa posterior en KSQL, ya que intentan determinar la actitud del usuario con respecto al tema del mensaje, y la polaridad contextual general del mismo.
-
- Mas información:  https://es.wikipedia.org/wiki/An%C3%A1lisis_de_sentimiento
-
 
  Estos campos son:
       > Sentimiento: Con valores "Positivo", "Negativo" o "Neutro".
       > Subjetividad: Valor entre 0 (muy objetivo) y 1 (muy subjetivo).
       > Polaridad: Entendido comoestado de ánimo, con valor entre -1 (ánimo muy negativo) y 1 (ánimo muy positivo).
+
+ Mas información:  https://es.wikipedia.org/wiki/An%C3%A1lisis_de_sentimiento
 
  Revisar fichero:  https://github.com/MRFORMACION/Comparativa_Sentimientos/blob/main/consumer.py
 
