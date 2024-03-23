@@ -33,6 +33,8 @@ En este proyecto usamos la versión 7.2.2 de los diferentes componentes KAFKA y 
 
           IDENTIFICADOR_NUMERICO_DEL_MENSAJE , "TEXTO DE MENSAJE SIN SANITIZAR", SENTIMIENTO_ORIGEN
 
+  Revisar fichero: https://github.com/MRFORMACION/Comparativa_Sentimientos/blob/main/tweets.csv
+
   (2) Fichero Python "extraer_de_twitter_a_kafka.py" que lee estos mensajes (en una pretensión inicial que fueran ON-LINE), pero para este proyecto se hace desde el fichero citado, y los encola en el TOPIC "twitter" CADA 2 SEGUNDO para simular la recepción continua de datos.
 
 
