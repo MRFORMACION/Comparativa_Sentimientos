@@ -124,8 +124,9 @@ En este proyecto usamos la versión 7.2.2 de los diferentes componentes KAFKA y 
 
  > Arrancar la aplicación DOCKER DESKTOP 
  > Descargar el fichero docker-compose.yml
- > Situados en el directorio de descarga del fichero docker-compose.yml ejecutar: 
-    > docker compose up -d
+ > Situados en el directorio de descarga del fichero docker-compose.yml ejecutar:
+
+    >  docker compose up -d
 
  Cuando acabe de ejecutarse este comando y haya creado los contenedores de los componentes KAFKA, accedemos a al del KSQL.
 
