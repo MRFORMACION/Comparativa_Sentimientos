@@ -12,9 +12,13 @@ Esta es el diagrama de arquitectura de componentes que comforman el proyecto:
 
 
 > ENTRADA AL SISTEMA: Fichero con tweets preetiquetados (1).
+
 > PROCESO LECTURA DE TWEETS: Ejecutable en Python que extrae los tweets y los encola para su procesameinto (2) en el TOPIC  "twitter".
+
 > MOTOR KAFKA: Para la gestión de las colas de mensajes.
+
 > PROCESO ANÁLISIS SENTIMIENTOS: Ejecutable en Python que recibe el TOPIC "twitter", calcula el análisis de sentimientos y encola los mensajes con sus nuevos valores de sentimientos (3) en el TOPIC "Sentimientos"
+
 > MOTOR KSQL: Que recibe ambos TOPICs y compara las etiquetas originales y las generadas en el presente análisis.
 
 En este proyecto usamos la versión 7.2.2 de los diferentes componentes KAFKA y KSQL que están configurados en contenedores DOCKER y la versión 3.x.x. de Python para los ejecutables. Además tendremos el fichero con los mensajes twitter "tweets.csv"
