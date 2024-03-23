@@ -8,7 +8,7 @@ Se desean reprocesar estos comentarios en tiempo real (a medida que se leen los 
 
 Esta es el diagrama de arquitectura de componentes que comforman el proyecto:
 
-(https://github.com/MRFORMACION/Comparativa_Sentimientos/blob/main/Arquitectura.jpg)
+![image](https://github.com/MRFORMACION/Comparativa_Sentimientos/blob/main/Arquitectura.jpg)
 
 
 > ENTRADA AL SISTEMA: Fichero con tweets preetiquetados (1).
