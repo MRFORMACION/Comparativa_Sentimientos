@@ -41,6 +41,8 @@ En este proyecto usamos la versión 7.2.2 de los diferentes componentes KAFKA y 
 
   Revisar fichero: https://github.com/MRFORMACION/Comparativa_Sentimientos/blob/main/extraer_de_twitter_a_kafka.py
 
+
+
 ## Parte 2: MOTOR KAFKA.
 
  Con la tecnologia que nos proporcionan los componentes de KAFKA, se utilizan 2 TOPIC. El primero ya citado "tweets" para la ingesta de datos y transmisión de eventos, y el segundo "Sentimientos" que se utilizará para procesar flujo de datos entre servicios (PROCESO DE ANÁLISIS DE SENTIMIENTOS -> PROCESO COMPARATIVA DE SENTIMIENTOS (KSQL))
@@ -48,6 +50,7 @@ En este proyecto usamos la versión 7.2.2 de los diferentes componentes KAFKA y 
  El PRODUCER de TOPIC "tweets" es el proceso de lecturas de mensajes, y los CONSUMER el proceso de análisis de sentimientos, y KSQL donde se realizará las comparaciones.
 
  EL PRODUCER de TOPIC "Sentimientos" es el proceso de análisis de sentimientos, y el único CONSUMER será de nuevo KSQL donde se realizará las comparaciones.
+
 
 
 ## Parte 3: PROCESO ANÁLISIS DE SENTIMIENTOS.
@@ -67,6 +70,7 @@ En este proyecto usamos la versión 7.2.2 de los diferentes componentes KAFKA y 
  Mas información:  https://es.wikipedia.org/wiki/An%C3%A1lisis_de_sentimiento
 
  Revisar fichero:  https://github.com/MRFORMACION/Comparativa_Sentimientos/blob/main/consumer.py
+
 
  
 ## Parte 4: MONITOR COMPARATIVA DE SENTIMIENTOS.
@@ -105,6 +109,7 @@ En este proyecto usamos la versión 7.2.2 de los diferentes componentes KAFKA y 
 --------------------------------------------------------------------------
 --------------------------------------------------------------------------
 
+
 # Configuración y explotación del Proyecto.
 
  En primer lugar, pondremos en marcha los componentes de KAFKA (docker compose up), prepararemos el entorno y las consultas en KSQL para recibir automáticamente los mensajes que tengan discrepancias entre  ambos etiquetados.
@@ -112,6 +117,8 @@ En este proyecto usamos la versión 7.2.2 de los diferentes componentes KAFKA y 
  Posteriormente copiaremos los ficheros ejecutables y el fichero csv de entrada, y pondremos en marcha los PRODUCERs, CONSUMERs y ANÁLISIS DE SENTIMIENTOS.
 
  Vamos allá.
+
+
 
 ## PASO 1: Puesta en marcha componentes KAFKA.
 
