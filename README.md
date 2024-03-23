@@ -37,6 +37,7 @@ En este proyecto usamos la versión 7.2.2 de los diferentes componentes KAFKA y 
 
   (2) Fichero Python "extraer_de_twitter_a_kafka.py" que lee estos mensajes (en una pretensión inicial que fueran ON-LINE), pero para este proyecto se hace desde el fichero citado, y los encola en el TOPIC "twitter" CADA 2 SEGUNDO para simular la recepción continua de datos.
 
+  Revisar fichero: https://github.com/MRFORMACION/Comparativa_Sentimientos/blob/main/extraer_de_twitter_a_kafka.py
 
 ## Parte 2: MOTOR KAFKA.
 
@@ -64,7 +65,7 @@ En este proyecto usamos la versión 7.2.2 de los diferentes componentes KAFKA y 
       > Subjetividad: Valor entre 0 (muy objetivo) y 1 (muy subjetivo).
       > Polaridad: Entendido comoestado de ánimo, con valor entre -1 (ánimo muy negativo) y 1 (ánimo muy positivo).
 
-  
+ Revisar fichero:  
 ## Parte 4: MONITOR COMPARATIVA DE SENTIMIENTOS.
 
  El preanálisis de sentimientos (externo a este proyecto) que se realiza a los mensajes del fichero de entrada "tweets.csv" los etiqueta con los siguientes valores:
