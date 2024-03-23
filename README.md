@@ -115,10 +115,8 @@ En este proyecto usamos la versión 7.2.2 de los diferentes componentes KAFKA y 
 
  > Arrancar la aplicación DOCKER DESKTOP 
  > Descargar el fichero docker-compose.yml
- > Situados en el directorio de descarga del fichero docker-compose.yml
- ejecutar: 
- 
- docker compose up -d
+ > Situados en el directorio de descarga del fichero docker-compose.yml ejecutar: 
+    > docker compose up -d
 
  Cuando acabe de ejecutarse este comando y haya creado los contenedores de los componentes KAFKA, accedemos a al del KSQL.
 
@@ -138,20 +136,19 @@ En este proyecto usamos la versión 7.2.2 de los diferentes componentes KAFKA y 
 
     > create table tabla_sentimientos (id VARCHAR PRIMARY KEY, msg VARCHAR, Sentimiento VARCHAR, Subjetividad VARCHAR, Polaridad VARCHAR) with (kafka_topic='Sentimientos', value_format='JSON', partitions=1);
 
-   > create table tabla_tweets as select preanotacion, count(*) as contador from  tweets group by preanotacion emit changes;
+    > create table tabla_tweets as select preanotacion, count(*) as contador from  tweets group by preanotacion emit changes;
 
-   > create table tabla_recuento_sentimientos as select Sentimiento, count(*) as contador from Sentimientos group by Sentimiento emit changes;
+    > create table tabla_recuento_sentimientos as select Sentimiento, count(*) as contador from Sentimientos group by Sentimiento emit changes;
 
-   > create stream Stream_join_sentimientos as select  t.id id_twitter, t.msg msg_twitter, t.preanotacion, S.Sentimiento,
-   S.Subjetividad, S.Polaridad from tweets t LEFT JOIN tabla_sentimientos S ON t.id = S.id EMIT CHANGES;
+    > create stream Stream_join_sentimientos as select  t.id id_twitter, t.msg msg_twitter, t.preanotacion, S.Sentimiento, S.Subjetividad, S.Polaridad from tweets t LEFT JOIN tabla_sentimientos S ON t.id = S.id EMIT CHANGES;
  
  En esta consola, ahora vamos a lanzar una consulta que recibirá las discrepancias entre ambos etiquetados. Esta consulta dejara está consola en espera de datos y por tanto sin poder hacer otra interactuación que no sea la recepción de los citado datos.
 
-   > select * from Stream_join_sentimientos where ((preanotacion = 'nocode' or preanotacion = 'not-relevant' or preanotacion = 'surprise')  and Sentimiento != 'Neutro') or (preanotacion = 'happy' and Sentimiento != 'Positivo') or ((preanotacion = 'sad' or preanotacion = 'angry' or preanotacion = 'disgust') and Sentimiento != 'Negativo') emit changes;
+    > select * from Stream_join_sentimientos where ((preanotacion = 'nocode' or preanotacion = 'not-relevant' or preanotacion = 'surprise')  and Sentimiento != 'Neutro') or (preanotacion = 'happy' and Sentimiento != 'Positivo') or ((preanotacion = 'sad' or preanotacion = 'angry' or preanotacion = 'disgust') and Sentimiento != 'Negativo') emit changes;
 
  En otra consola, deberemos ejecutar estos comandos para obtener el conteo de los mensajes que van llegando al KSQL:
 
-  >  docker exec -it ksqldb-cli ksql http://ksqldb-server:8088
+   > docker exec -it ksqldb-cli ksql http://ksqldb-server:8088
 
  Dentro de KSQL se podrán ejecutar estos comandos a demanda, cuando se necesite saber cuantos registros se han recibido de cada sentimiento:
   
