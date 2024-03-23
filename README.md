@@ -216,6 +216,8 @@ En este proyecto usamos la versión 7.2.2 de los diferentes componentes KAFKA y 
     > python3 consumer.py                     (en otra de las consolas)
 
 
-En el Monitor que crea en el Paso 2, se deberían de producir mensajes con discrepancia en ambos etiquetados.
+
+
+En el Monitor que se crea en el Paso 2, se deberían de estar recibiendo mensajes con discrepancia en ambos etiquetados.
 
 
