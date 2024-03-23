@@ -10,7 +10,6 @@ Esta es el diagrama de arquitectura de componentes que comforman el proyecto:
 
 ![image](https://github.com/MRFORMACION/Comparativa_Sentimientos/blob/main/Arquitectura.jpg)
 
-
 > ENTRADA AL SISTEMA: Fichero con tweets preetiquetados (1).
 
 > PROCESO LECTURA DE TWEETS: Ejecutable en Python que extrae los tweets y los encola para su procesameinto (2) en el TOPIC  "twitter".
@@ -96,7 +95,7 @@ En este proyecto usamos la versión 7.2.2 de los diferentes componentes KAFKA y 
 
  Estos son los valores que se han considerado equivalentes:
 
- <<<<<  DIAGRAMA DE EQUIVALENCIA DE SENTIMIENTOS>>>>>
+ ![image](https://github.com/MRFORMACION/Comparativa_Sentimientos/blob/main/DIAGRAMA%20de%20ETIQUETAS.drawio.png)
 
  Todo mensaje que no cumpla con estas equivalencias, se mostrará en el Monitor de Comparativa de Sentimiento en el KSQL, lo que permitirá optimizar los modelos de cálculo (Proceso fuera de este proyecto).
 
