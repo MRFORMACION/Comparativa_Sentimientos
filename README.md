@@ -128,7 +128,7 @@ En este proyecto usamos la versión 7.2.2 de los diferentes componentes KAFKA y 
 
     >  docker compose up -d
 
- Cuando acabe de ejecutarse este comando y haya creado los contenedores de los componentes KAFKA, accedemos a al del KSQL.
+ Cuando acabe de ejecutarse este comando y haya creado los contenedores de los componentes KAFKA, accedemos al del KSQL.
 
 
 ## PASO 2: Arrancar el MONITOR DE COMPARATIVAS DE SENTIMIENTOS (KSQL)
