@@ -65,7 +65,9 @@ En este proyecto usamos la versión 7.2.2 de los diferentes componentes KAFKA y 
       > Subjetividad: Valor entre 0 (muy objetivo) y 1 (muy subjetivo).
       > Polaridad: Entendido comoestado de ánimo, con valor entre -1 (ánimo muy negativo) y 1 (ánimo muy positivo).
 
- Revisar fichero:  
+ Revisar fichero:  https://github.com/MRFORMACION/Comparativa_Sentimientos/blob/main/consumer.py
+
+ 
 ## Parte 4: MONITOR COMPARATIVA DE SENTIMIENTOS.
 
  El preanálisis de sentimientos (externo a este proyecto) que se realiza a los mensajes del fichero de entrada "tweets.csv" los etiqueta con los siguientes valores:
