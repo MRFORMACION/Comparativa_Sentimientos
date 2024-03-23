@@ -152,11 +152,12 @@ En este proyecto usamos la versión 7.2.2 de los diferentes componentes KAFKA y 
 
     > create stream Stream_join_sentimientos as select  t.id id_twitter, t.msg msg_twitter, t.preanotacion, S.Sentimiento, S.Subjetividad, S.Polaridad from tweets t LEFT JOIN tabla_sentimientos S ON t.id = S.id EMIT CHANGES;
  
- En esta consola, ahora vamos a lanzar una consulta que recibirá las discrepancias entre ambos etiquetados. Esta consulta dejara está consola en espera de datos y por tanto sin poder hacer otra interactuación que no sea la recepción de los citado datos.
+ En esta consola, ahora vamos a lanzar una consulta que recibirá las discrepancias entre ambos etiquetados. 
+ LA SIGUIENTE CONSULTA MANTIENE LA CONSOLA EN ESPERA DE DATOS Y A PARTIR DE AHORA SOLO SE UTILIZARÁ PARA ESTA FUNCIÓN (RECEPCIÓN DE DATOS DE DISCREPANCIAS).
 
     > select * from Stream_join_sentimientos where ((preanotacion = 'nocode' or preanotacion = 'not-relevant' or preanotacion = 'surprise')  and Sentimiento != 'Neutro') or (preanotacion = 'happy' and Sentimiento != 'Positivo') or ((preanotacion = 'sad' or preanotacion = 'angry' or preanotacion = 'disgust') and Sentimiento != 'Negativo') emit changes;
 
- En otra consola, deberemos ejecutar estos comandos para obtener el conteo de los mensajes que van llegando al KSQL:
+ EN OTRA CONSOLA, deberemos ejecutar estos comandos para obtener el conteo de los mensajes que van llegando al KSQL:
 
    > docker exec -it ksqldb-cli ksql http://ksqldb-server:8088
 
