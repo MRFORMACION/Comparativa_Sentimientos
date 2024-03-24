@@ -169,6 +169,7 @@ Con la tecnologia que nos proporcionan los componentes de KAFKA, se utilizan 2 T
     > create stream Stream_join_sentimientos as select  t.id id_twitter, t.msg msg_twitter, t.preanotacion, S.Sentimiento, S.Subjetividad, S.Polaridad from tweets t LEFT JOIN tabla_sentimientos S ON t.id = S.id EMIT CHANGES;
  
  En esta consola, ahora vamos a lanzar una consulta que recibirá las discrepancias entre ambos etiquetados. 
+ 
  LA SIGUIENTE CONSULTA MANTIENE LA CONSOLA EN ESPERA DE DATOS Y A PARTIR DE AHORA SOLO SE UTILIZARÁ PARA ESTA FUNCIÓN (RECEPCIÓN DE DATOS DE DISCREPANCIAS).
 
     > select * from Stream_join_sentimientos where ((preanotacion = 'nocode' or preanotacion = 'not-relevant' or preanotacion = 'surprise')  and Sentimiento != 'Neutro') or (preanotacion = 'happy' and Sentimiento != 'Positivo') or ((preanotacion = 'sad' or preanotacion = 'angry' or preanotacion = 'disgust') and Sentimiento != 'Negativo') emit changes;
