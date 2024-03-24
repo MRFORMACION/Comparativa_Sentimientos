@@ -76,8 +76,11 @@ Con la tecnologia que nos proporcionan los componentes de KAFKA, se utilizan 2 T
  contextual general del mismo.
 
  Estos campos son:
+ 
       > Sentimiento: Con valores "Positivo", "Negativo" o "Neutro".
+ 
       > Subjetividad: Valor entre 0 (muy objetivo) y 1 (muy subjetivo).
+      
       > Polaridad: Entendido comoestado de ánimo, con valor entre -1 (ánimo muy negativo) y 1 (ánimo muy positivo).
 
  Mas información:  https://es.wikipedia.org/wiki/An%C3%A1lisis_de_sentimiento
