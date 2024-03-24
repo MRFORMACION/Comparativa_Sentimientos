@@ -156,17 +156,17 @@ Con la tecnologia que nos proporcionan los componentes de KAFKA, se utilizan 2 T
 
  Ahora crearemos una serie de streams y tablas para las consultas:
 
-    > create stream tweets (id VARCHAR, msg VARCHAR, preanotacion VARCHAR) with (kafka_topic='twitter', value_format='JSON', partitions=1);
+    create stream tweets (id VARCHAR, msg VARCHAR, preanotacion VARCHAR) with (kafka_topic='twitter', value_format='JSON', partitions=1);
 
-    > create stream Sentimientos (id VARCHAR, msg VARCHAR, Sentimiento VARCHAR, Subjetividad VARCHAR, Polaridad VARCHAR) with (kafka_topic='Sentimientos', value_format='JSON', partitions=1);
+    create stream Sentimientos (id VARCHAR, msg VARCHAR, Sentimiento VARCHAR, Subjetividad VARCHAR, Polaridad VARCHAR) with (kafka_topic='Sentimientos', value_format='JSON', partitions=1);
 
-    > create table tabla_sentimientos (id VARCHAR PRIMARY KEY, msg VARCHAR, Sentimiento VARCHAR, Subjetividad VARCHAR, Polaridad VARCHAR) with (kafka_topic='Sentimientos', value_format='JSON', partitions=1);
+    create table tabla_sentimientos (id VARCHAR PRIMARY KEY, msg VARCHAR, Sentimiento VARCHAR, Subjetividad VARCHAR, Polaridad VARCHAR) with (kafka_topic='Sentimientos', value_format='JSON', partitions=1);
 
-    > create table tabla_tweets as select preanotacion, count(*) as contador from  tweets group by preanotacion emit changes;
+    create table tabla_tweets as select preanotacion, count(*) as contador from  tweets group by preanotacion emit changes;
 
-    > create table tabla_recuento_sentimientos as select Sentimiento, count(*) as contador from Sentimientos group by Sentimiento emit changes;
+    create table tabla_recuento_sentimientos as select Sentimiento, count(*) as contador from Sentimientos group by Sentimiento emit changes;
 
-    > create stream Stream_join_sentimientos as select  t.id id_twitter, t.msg msg_twitter, t.preanotacion, S.Sentimiento, S.Subjetividad, S.Polaridad from tweets t LEFT JOIN tabla_sentimientos S ON t.id = S.id EMIT CHANGES;
+    create stream Stream_join_sentimientos as select  t.id id_twitter, t.msg msg_twitter, t.preanotacion, S.Sentimiento, S.Subjetividad, S.Polaridad from tweets t LEFT JOIN tabla_sentimientos S ON t.id = S.id EMIT CHANGES;
  
  En esta consola, ahora vamos a lanzar una consulta que recibirá las discrepancias entre ambos etiquetados. 
  
