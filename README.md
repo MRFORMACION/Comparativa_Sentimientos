@@ -184,7 +184,9 @@ Con la tecnologia que nos proporcionan los componentes de KAFKA, se utilizan 2 T
 
     select * from tabla_recuento_sentimientos;
 
- Estas acciones dejaran 2 consolas abiertas para ir verificando que los datos de los TOPIC van llegando y se van comparando
+ Estas acciones dejaran 2 consolas abiertas para ir verificando que los datos de los TOPIC van llegando y se van comparando.
+
+ En este momento ninguna de las consultas mostrará resultados hasta que se ejecuten los ficheros Python.
 
 
 ## Paso 3: Copia de ficheros e instalación de bibliotecas Python.
