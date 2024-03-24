@@ -142,7 +142,7 @@ Con la tecnologia que nos proporcionan los componentes de KAFKA, se utilizan 2 T
  > Descargar el fichero docker-compose.yml
  > Situados en el directorio de descarga del fichero docker-compose.yml ejecutar:
 
-    >  docker compose up -d
+     docker compose up -d
 
  Cuando acabe de ejecutarse este comando y haya creado los contenedores de los componentes KAFKA, accedemos al del KSQL.
 
@@ -152,7 +152,7 @@ Con la tecnologia que nos proporcionan los componentes de KAFKA, se utilizan 2 T
  Que recibe ambos TOPICs y compara las etiquetas originales y las generadas en el presente análisis.
  Acceder al Cliente de KSQK:
 
-    >  docker exec -it ksqldb-cli ksql http://ksqldb-server:8088
+    docker exec -it ksqldb-cli ksql http://ksqldb-server:8088
 
  Ahora crearemos una serie de streams y tablas para las consultas:
 
@@ -172,17 +172,17 @@ Con la tecnologia que nos proporcionan los componentes de KAFKA, se utilizan 2 T
  
  LA SIGUIENTE CONSULTA MANTIENE LA CONSOLA EN ESPERA DE DATOS Y A PARTIR DE AHORA SOLO SE UTILIZARÁ PARA ESTA FUNCIÓN (RECEPCIÓN DE DATOS DE DISCREPANCIAS).
 
-    > select * from Stream_join_sentimientos where ((preanotacion = 'nocode' or preanotacion = 'not-relevant' or preanotacion = 'surprise')  and Sentimiento != 'Neutro') or (preanotacion = 'happy' and Sentimiento != 'Positivo') or ((preanotacion = 'sad' or preanotacion = 'angry' or preanotacion = 'disgust') and Sentimiento != 'Negativo') emit changes;
+    select * from Stream_join_sentimientos where ((preanotacion = 'nocode' or preanotacion = 'not-relevant' or preanotacion = 'surprise')  and Sentimiento != 'Neutro') or (preanotacion = 'happy' and Sentimiento != 'Positivo') or ((preanotacion = 'sad' or preanotacion = 'angry' or preanotacion = 'disgust') and Sentimiento != 'Negativo') emit changes;
 
  EN OTRA CONSOLA, deberemos ejecutar estos comandos para obtener el conteo de los mensajes que van llegando al KSQL:
 
-    > docker exec -it ksqldb-cli ksql http://ksqldb-server:8088
+    docker exec -it ksqldb-cli ksql http://ksqldb-server:8088
 
  Dentro de KSQL se podrán ejecutar estos comandos a demanda, cuando se necesite saber cuantos registros se han recibido de cada sentimiento:
   
-    > select * from tabla_tweets;
+    select * from tabla_tweets;
 
-    > select * from tabla_recuento_sentimientos;
+    select * from tabla_recuento_sentimientos;
 
  Estas acciones dejaran 2 consolas abiertas para ir verificando que los datos de los TOPIC van llegando y se van comparando
 
@@ -191,32 +191,32 @@ Con la tecnologia que nos proporcionan los componentes de KAFKA, se utilizan 2 T
  
   Descargar los ficheros ejecutables Python y copiarlos al contenedor BROKER.
 
-    > docker cp consumer.py broker:/home/appuser
-    > docker cp extraer_de_twitter_a_kafka.py broker:/home/appuser
+    docker cp consumer.py broker:/home/appuser
+    docker cp extraer_de_twitter_a_kafka.py broker:/home/appuser
   
   También copiar el fichero con los mensajes iniciales de twitter.
 
-    > docker cp tweets.csv broker:/home/appuser
+    docker cp tweets.csv broker:/home/appuser
 
   Accedemos al contenedor BROKER
 
-    > docker exec -it broker /bin/bash
+    docker exec -it broker /bin/bash
 
   E instalamos la bibliotecas Python
 
-    > pip3 install kafka-python
-    > pip3 install textblob
+    pip3 install kafka-python
+    pip3 install textblob
 
 ## Paso 4: (OPCIONAL) Suscribirnos a los TOPIC (uno en cada consola) para ir verificando que los TOPIC reciben mensajes.
  
   En otras 2 consolas diferentes (o en uno de los casos, reutilizando la anterior de copias de ficheros e instalación de bibliotecas) deberemos abrir sesión en el BROKER:
 
-    > docker exec -it broker /bin/bash
+    docker exec -it broker /bin/bash
  
  Y en cada uno suscribirnos a los TOPIC:
 
-    > kafka-console-consumer --bootstrap-server broker:9092 --topic twitter --from-beginning  (en una de las consolas)
-    > kafka-console-consumer --bootstrap-server broker:9092 --topic Sentimientos --from-beginning (en otra de las consolas)
+    kafka-console-consumer --bootstrap-server broker:9092 --topic twitter --from-beginning  (en una de las consolas)
+    kafka-console-consumer --bootstrap-server broker:9092 --topic Sentimientos --from-beginning (en otra de las consolas)
 
  
 ## Paso 5: Ejecución de los procesos de Extracción de mensajes (desde fichero "tweets.csv") y Análisis de Sentimientos.
@@ -225,12 +225,12 @@ Con la tecnologia que nos proporcionan los componentes de KAFKA, se utilizan 2 T
 
   En otras 2 consolas diferentes deberemos abrir sesión en el BROKER:
 
-    > docker exec -it broker /bin/bash
+    docker exec -it broker /bin/bash
  
  Y en cada uno ejecutamos un fichero Python:
 
-    > python3 extraer_de_twitter_a_kafka.py   (en una de las consolas)
-    > python3 consumer.py                     (en otra de las consolas)
+    python3 extraer_de_twitter_a_kafka.py   (en una de las consolas)
+    python3 consumer.py                     (en otra de las consolas)
 
 
 
