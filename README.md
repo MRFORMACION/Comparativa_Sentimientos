@@ -150,10 +150,13 @@ Con la tecnologia que nos proporcionan los componentes de KAFKA, se utilizan 2 T
 ## PASO 2: Arrancar el MONITOR DE COMPARATIVAS DE SENTIMIENTOS (KSQL)
 
  Que recibe ambos TOPICs y compara las etiquetas originales y las generadas en el presente análisis.
+
  Acceder al Cliente de KSQK:
 
     docker exec -it ksqldb-cli ksql http://ksqldb-server:8088
-
+ 
+ ** OBSERVACIÓN:  El Servidor al que se conecta este Cliente, puede tardar unos minutos en arrancar completamente, por lo que una pronta conexión del Cliente, podría arrojar algún error de conexión con el Servidor. ** 
+ 
  Ahora crearemos una serie de streams y tablas para las consultas:
 
     create stream tweets (id VARCHAR, msg VARCHAR, preanotacion VARCHAR) with (kafka_topic='twitter', value_format='JSON', partitions=1);
