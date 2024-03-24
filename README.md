@@ -67,7 +67,9 @@ Con la tecnologia que nos proporcionan los componentes de KAFKA, se utilizan 2 T
 
  (3) Fichero Python "consumer.py" que realiza las tareas de CONSUMER y PRODUCER. 
  Recibe los mensajes del TOPIC "twitter" y los sanitiza (hace limpieza de caracteres que no son útiles para el análisis).
+ 
  Posteriormente utiliza la función "TextBlob" para calcular el sentimiento del mensaje.
+ 
  Y por último realiza la tarea de PRODUCER con el registro enriquecido con los nuevos valores.
 
  Con el Método "TextBlob" se calculan 3 campos de sentimientos que ayudarán en la comparativa posterior en KSQL, ya que intentan determinar la actitud del usuario con respecto al tema del mensaje, y la polaridad 
